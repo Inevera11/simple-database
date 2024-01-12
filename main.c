@@ -1,11 +1,6 @@
 #include <stdbool.h>
 #include <string.h>
-#include "includedFiles/bufferInput/input.h"
-
-void print_prompt()
-{
-    printf("db > ");
-};
+#include "includedFiles/create/create.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,10 +9,25 @@ int main(int argc, char *argv[])
     {
         print_prompt();
         read_input(input_buffer);
-        if (strcmp(input_buffer->buffer, ".exit") == 0)
+        if (input_buffer->buffer[0] == '.')
         {
-            close_input_buffer(input_buffer);
-            exit(EXIT_SUCCESS);
+            if (strcmp(input_buffer->buffer, ".help") == 0)
+            {
+                printHelpCommand();
+            }
+            else if (strcmp(input_buffer->buffer, ".exit") == 0)
+            {
+                close_input_buffer(input_buffer);
+                exit(EXIT_SUCCESS);
+            }
+            else
+            {
+                printf("Unrecognized command '%s'.\n", input_buffer->buffer);
+            }
+        }
+        else if (strncmp(input_buffer->buffer, "createTable", 11) == 0)
+        {
+            createTable(input_buffer);
         }
         else
         {

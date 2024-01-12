@@ -27,8 +27,18 @@ void read_input(InputBuffer *input_buffer)
     input_buffer->buffer[bytes_read - 1] = 0;
 }
 
+void printHelpCommand()
+{
+    printf("Enter:\ncreateTable tableName to create table.\n");
+}
+
 void close_input_buffer(InputBuffer *input_buffer)
 {
     free(input_buffer->buffer);
     free(input_buffer);
 }
+
+void print_prompt()
+{
+    printf("db > ");
+};
