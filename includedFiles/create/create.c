@@ -1,7 +1,7 @@
 #include <string.h>
 #include "create.h"
 
-void createTable(InputBuffer *input_buffer)
+void createTable(InputBuffer *input_buffer, char **lasedUsedtable)
 {
     strtok(input_buffer->buffer, " ");
     // clip buffer to keep the string after createTable
@@ -15,6 +15,7 @@ void createTable(InputBuffer *input_buffer)
     }
     // delete .db
     char *tableName = strtok(fileName, ".");
+    *lasedUsedtable = tableName;
     fprintf(file, "%s", tableName);
     printf("Table %s created! Now you can perform insert operation\n", tableName);
     fclose(file);

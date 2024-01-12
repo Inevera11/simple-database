@@ -11,6 +11,6 @@ typedef struct
     char surname[COLUMN_SIZE];
 } Row;
 
-void createTable(InputBuffer *input_buffer);
+void createTable(InputBuffer *input_buffer, char **lastUsedTable);
 
 #endif
