@@ -6,7 +6,6 @@
 int main(int argc, char *argv[])
 {
     InputBuffer *input_buffer = new_input_buffer();
-    char *lastUsedTableName = NULL;
     while (true)
     {
         print_prompt();
@@ -29,18 +28,11 @@ int main(int argc, char *argv[])
         }
         else if (strncmp(input_buffer->buffer, "createTable", 11) == 0)
         {
-            createTable(input_buffer, &lastUsedTableName);
+            createTable(input_buffer);
         }
-        else if (strncmp(input_buffer->buffer, "insert", 6) == 0)
+        else if (strncmp(input_buffer->buffer, "insert into", 11) == 0)
         {
-            if (dbExists(lastUsedTableName) == 0)
-            {
-                printf("No database %s created.\n", lastUsedTableName);
-            }
-            else
-            {
-                printf("Found.");
-            };
+            insertInto(input_buffer);
         }
         else
         {

@@ -29,7 +29,11 @@ void read_input(InputBuffer *input_buffer)
 
 void printHelpCommand()
 {
-    printf("Enter:\ncreateTable tableName to create table.\n");
+    printf("Enter:\n"
+           ".exit - terminate program\n"
+           ".help - get command list\n"
+           "createTable <tableName> - create table\n"
+           "insert into <tableName> - insert\n");
 }
 
 void close_input_buffer(InputBuffer *input_buffer)
@@ -42,3 +46,36 @@ void print_prompt()
 {
     printf("db > ");
 };
+
+char *appendDB(char *tableName, int tableNameLength)
+{
+    // Allocate memory for the filename (tableName + ".db" + null terminator)
+    char *fileName = malloc(tableNameLength + 3 + 1);
+    if (fileName == NULL)
+    {
+        return NULL;
+    }
+    // Copy the table name
+    strcpy(fileName, tableName);
+    // Append the file extension
+    strcat(fileName, ".db");
+
+    return fileName;
+}
+
+char *discardFrontCommand(char *input, int inputLength, int commandLenght)
+{
+    int tableNameLenght = inputLength - commandLenght;
+    char *tableName = malloc(tableNameLenght);
+    if (tableName == NULL)
+    {
+        return NULL;
+    }
+
+    for (int i = 0; i < tableNameLenght; i++)
+    {
+        tableName[i] = input[commandLenght + i];
+    };
+
+    return tableName;
+}

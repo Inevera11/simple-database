@@ -1,38 +1,40 @@
 #include "insert.h"
-#include <dirent.h>
+#define COMMAND_LENGHT 12
 
-int dbExists(char *tableName)
+void insertInto(InputBuffer *input_buffer)
 {
+    char *tableName = discardFrontCommand(input_buffer->buffer, input_buffer->input_length, COMMAND_LENGHT);
     if (tableName == NULL)
     {
-        return 0;
+        printf("Memory allocation for tableName failed");
+        return;
+    }
+    char *fileName = appendDB(tableName, input_buffer->input_length - COMMAND_LENGHT);
+    if (fileName == NULL)
+    {
+        printf("Memory allocation for fileName failed");
+        return;
+    }
+
+    printf("table name %s\n", tableName);
+    printf("file name %s\n", fileName);
+
+    if (dbExists(fileName) == 0)
+    {
+        printf("No database %s created.\n", fileName);
+        return;
     };
-    DIR *dir;
-    struct dirent *entry;
 
-    dir = opendir(".");
-    if (dir == NULL)
+    FILE *file = fopen(fileName, "a");
+    if (file == NULL)
     {
-        perror("Error opening directory");
-        return 0;
-    }
-    printf("tableName %s\n", tableName);
-    char *fileName;
-    strcpy(fileName, tableName);
-    strcat(fileName, ".db");
-
-    while ((entry = readdir(dir)) != NULL)
-    {
-        if (fnmatch(fileName, entry->d_name, 0) == 0)
-        {
-            closedir(dir);
-            return 1;
-        }
-    }
-    closedir(dir);
-    return 0;
-}
-
-void insert(InputBuffer *input_buffer, char *tableName){
-
+        printf("Couldn't open a %s file\n", fileName);
+        close_input_buffer(input_buffer);
+        exit(EXIT_FAILURE);
+    };
+    // fprintf(file, "%s", tableName);
+    printf("File %s opened!\n", fileName);
+    fclose(file);
+    free(fileName);
+    free(tableName);
 };

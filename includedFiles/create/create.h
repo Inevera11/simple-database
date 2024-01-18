@@ -3,6 +3,9 @@
 
 #include "../bufferInput/input.h"
 #define COLUMN_SIZE 255
+#include <fnmatch.h>
+#include <string.h>
+#include <dirent.h>
 
 typedef struct
 {
@@ -11,6 +14,7 @@ typedef struct
     char surname[COLUMN_SIZE];
 } Row;
 
-void createTable(InputBuffer *input_buffer, char **lastUsedTable);
+void createTable(InputBuffer *input_buffer);
+int dbExists(char *fileName);
 
 #endif

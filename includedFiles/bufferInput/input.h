@@ -21,4 +21,8 @@ void print_prompt();
 
 void close_input_buffer(InputBuffer *input_buffer);
 
+char *appendDB(char *tableName, int tableNameLenght);
+
+char *discardFrontCommand(char *input, int inputLength, int commandLenght);
+
 #endif
