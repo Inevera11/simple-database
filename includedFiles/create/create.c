@@ -1,5 +1,6 @@
 #include "create.h"
 #define COMMAND_LENGHT 12
+#define MAX_COLUMN_NAMES_LENGHT 300
 
 int dbExists(char *fileName)
 {
@@ -56,8 +57,21 @@ void createTable(InputBuffer *input_buffer)
         close_input_buffer(input_buffer);
         exit(EXIT_FAILURE);
     }
-    fprintf(file, "%s", tableName);
-    printf("Table %s created! Now you can perform insert into operation\n", tableName);
+    printf("Provide column names (separated by spaces):\n");
+    char columnNames[MAX_COLUMN_NAMES_LENGHT];
+
+    if (fgets(columnNames, sizeof(columnNames), stdin) == NULL)
+    {
+        printf("Error reading input\n");
+        fclose(file);
+        close_input_buffer(input_buffer);
+        free(tableName);
+        free(fileName);
+        exit(EXIT_FAILURE);
+    }
+    columnNames[strcspn(columnNames, "\n")] = '\0';
+    char tableHeader[MAX_COLUMN_NAMES_LENGHT] = "id ";
+    strcat(tableHeader, columnNames);
 
     fclose(file);
     free(tableName);
