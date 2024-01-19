@@ -16,7 +16,6 @@ int checkIfUserEnteredCorrectly(char *line, int quantity)
         token = strtok(NULL, delimiter);
     };
     // column quantity - id column
-    printf("i %d", i);
     if (i == quantity - 1)
     {
         return 1;
@@ -96,6 +95,8 @@ void insertInto(InputBuffer *input_buffer)
     {
         printf("Couldn't open a %s file\n", fileName);
         close_input_buffer(input_buffer);
+        free(fileName);
+        free(tableName);
         exit(EXIT_FAILURE);
     };
     insertValues(file);

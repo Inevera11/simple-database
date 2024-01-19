@@ -4,6 +4,7 @@
     "string.h": "c",
     "input.h": "c",
     "create.h": "c",
-    "filegetters.h": "c"
+    "filegetters.h": "c",
+    "selecthelpers.h": "c"
   }
 }

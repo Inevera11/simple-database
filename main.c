@@ -2,6 +2,7 @@
 #include <string.h>
 #include "includedFiles/create/create.h"
 #include "includedFiles/insert/insert.h"
+#include "includedFiles/select/select.h"
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +34,10 @@ int main(int argc, char *argv[])
         else if (strncmp(input_buffer->buffer, "insert into", 11) == 0)
         {
             insertInto(input_buffer);
+        }
+        else if (strncmp(input_buffer->buffer, "select", 6) == 0)
+        {
+            select(input_buffer);
         }
         else
         {

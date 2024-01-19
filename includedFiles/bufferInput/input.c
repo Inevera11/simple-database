@@ -32,8 +32,10 @@ void printHelpCommand()
     printf("Enter:\n"
            ".exit - terminate program\n"
            ".help - get command list\n"
-           "create table <tableName> - create table\n"
-           "insert into <tableName> - insert\n");
+           "create table <table_name> - create table\n"
+           "insert into <table_name> - insert\n"
+           "select * from <table_name> - show all table in a console\n"
+           "select column1,column2 from <table_name> - show specific columns from table in a console\n");
 }
 
 void close_input_buffer(InputBuffer *input_buffer)
