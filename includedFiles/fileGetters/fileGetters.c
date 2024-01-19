@@ -4,7 +4,7 @@
 char **getColumnHeaders(FILE *file, int *numColumns)
 {
     int guessedNumberOfColumns = COL_CONST;
-    char **columns = malloc(guessedNumberOfColumns * sizeof(char *));
+    char **columns = (char **)malloc(guessedNumberOfColumns * sizeof(char *));
     fseek(file, 0, SEEK_SET);
     char firstLine[1024];
     if (fgets(firstLine, sizeof(firstLine), file) == NULL)

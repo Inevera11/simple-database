@@ -58,12 +58,6 @@ void determineColumnsToSelect(InputBuffer *input_buffer, char **columnsToSelect,
     char *currColumn = strdup(token);
     // remove "from"
     token = strtok(NULL, delimiter);
-    if (strcmp(token, "form") != 0)
-    {
-        printf("Incorrect command. Type .help to check it.\n");
-        input_buffer->buffer = NULL;
-        return;
-    };
     // leave only table name in input buffer
     input_buffer->buffer = strtok(NULL, delimiter);
 
