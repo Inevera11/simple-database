@@ -15,6 +15,7 @@ char **getColumnHeaders(FILE *file, int *numColumns)
     char *delimiter = " ";
     char *token;
     int columnsQuantity = 0;
+    // extract column headers from first line
     token = strtok(firstLine, delimiter);
     while (token != NULL)
     {

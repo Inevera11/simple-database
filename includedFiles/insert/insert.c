@@ -50,6 +50,8 @@ void insertValues(FILE *file)
     }
 
     char *lastRowId = getLastRowId(file);
+
+    // add unique id automatically
     char currRowId[MAX_COLUMN_NAMES_LENGHT];
     if (strncmp(lastRowId, "id", 2) == 0)
     {
@@ -59,6 +61,7 @@ void insertValues(FILE *file)
     {
         sprintf(currRowId, "%d ", atoi(lastRowId) + 1);
     }
+    // add id to provided values
     strcat(currRowId, newValues);
     fseek(file, 0, SEEK_END);
     fprintf(file, "%s", currRowId);
