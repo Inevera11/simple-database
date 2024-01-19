@@ -1,6 +1,6 @@
 #include "create.h"
-#define COMMAND_LENGHT 12
-#define MAX_COLUMN_NAMES_LENGHT 300
+#define COMMAND_LENGHT 13
+#define MAX_COLUMN_NAMES_LENGHT 1024
 
 int dbExists(char *fileName)
 {
@@ -35,7 +35,7 @@ void createTable(InputBuffer *input_buffer)
     char *tableName = discardFrontCommand(input_buffer->buffer, input_buffer->input_length, COMMAND_LENGHT);
     if (tableName == NULL)
     {
-        printf("Memory allocation failed");
+        printf("You forgot to provide table name.\n");
         return;
     }
     char *fileName = appendDB(tableName, input_buffer->input_length - COMMAND_LENGHT);
@@ -69,9 +69,9 @@ void createTable(InputBuffer *input_buffer)
         free(fileName);
         exit(EXIT_FAILURE);
     }
-    columnNames[strcspn(columnNames, "\n")] = '\0';
     char tableHeader[MAX_COLUMN_NAMES_LENGHT] = "id ";
     strcat(tableHeader, columnNames);
+    fprintf(file, "%s", tableHeader);
 
     fclose(file);
     free(tableName);

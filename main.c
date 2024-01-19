@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
                 printf("Unrecognized command '%s'.\n", input_buffer->buffer);
             }
         }
-        else if (strncmp(input_buffer->buffer, "createTable", 11) == 0)
+        else if (strncmp(input_buffer->buffer, "create table", 12) == 0)
         {
             createTable(input_buffer);
         }

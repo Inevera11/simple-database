@@ -32,7 +32,7 @@ void printHelpCommand()
     printf("Enter:\n"
            ".exit - terminate program\n"
            ".help - get command list\n"
-           "createTable <tableName> - create table\n"
+           "create table <tableName> - create table\n"
            "insert into <tableName> - insert\n");
 }
 
