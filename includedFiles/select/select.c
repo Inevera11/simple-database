@@ -1,6 +1,6 @@
 #include "select.h"
-#define COMMAND_LENGHT 5
-#define MAX_COLUMN_NAMES_LENGHT 1024
+#define COMMAND_LENGTH 5
+#define MAX_COLUMN_NAMES_LENGTH 1024
 #define MAX_TOKEN_LENGTH 18
 #define GUESSED_COL 4
 
@@ -9,29 +9,29 @@ void select(InputBuffer *input_buffer)
 
     const char *delimiter = " ";
     char **columnsToSelect = malloc(GUESSED_COL * sizeof(char *));
-    int columsToSelectQuantity = 0;
-    // fill in columns to select and their quantity with user input. Leave onlu table name in buffer
-    determineColumnsToSelect(input_buffer, columnsToSelect, &columsToSelectQuantity);
+    int columnsToSelectQuantity = 0;
+    // fill in columns to select and their quantity with user input. Leave only table name in buffer
+    determineColumnsToSelect(input_buffer, columnsToSelect, &columnsToSelectQuantity);
 
     char *tableName = input_buffer->buffer;
     char *fileName;
     if (tableName == NULL)
     {
         printf("You forgot to provide table name.\n");
-        freeMemory(columnsToSelect, columsToSelectQuantity, fileName, 0);
+        freeMemory(columnsToSelect, columnsToSelectQuantity, fileName, 0);
         return;
     }
-    fileName = appendDB(tableName, input_buffer->input_length - COMMAND_LENGHT);
+    fileName = appendDB(tableName, input_buffer->input_length - COMMAND_LENGTH);
     if (fileName == NULL)
     {
         printf("Memory allocation failed");
-        freeMemory(columnsToSelect, columsToSelectQuantity, fileName, 0);
+        freeMemory(columnsToSelect, columnsToSelectQuantity, fileName, 0);
         return;
     }
     if (dbExists(fileName) == 0)
     {
         printf("No database %s created.\n", fileName);
-        freeMemory(columnsToSelect, columsToSelectQuantity, fileName, 1);
+        freeMemory(columnsToSelect, columnsToSelectQuantity, fileName, 1);
         return;
     };
 
@@ -39,17 +39,17 @@ void select(InputBuffer *input_buffer)
     if (file == NULL)
     {
         printf("Couldn't open a %s file\n", fileName);
-        freeMemory(columnsToSelect, columsToSelectQuantity, fileName, 1);
+        freeMemory(columnsToSelect, columnsToSelectQuantity, fileName, 1);
     };
 
     int columnsHeadersQuantity = 0;
     char **columnsHeader = getColumnHeaders(file, &columnsHeadersQuantity);
     int columnsToShowIndexes[columnsHeadersQuantity];
     // fill in columnsToShowIndexes with 0 (don't show) and 1 (show)
-    getColumnsToDisplayIndexes(columnsToSelect, columsToSelectQuantity, columnsHeader,
+    getColumnsToDisplayIndexes(columnsToSelect, columnsToSelectQuantity, columnsHeader,
                                columnsHeadersQuantity, &columnsToShowIndexes);
 
-    char currLine[MAX_COLUMN_NAMES_LENGHT];
+    char currLine[MAX_COLUMN_NAMES_LENGTH];
     char truncatedToken[MAX_TOKEN_LENGTH + 1];
     fseek(file, 0, SEEK_SET);
     while (fgets(currLine, sizeof(currLine), file))
@@ -80,5 +80,5 @@ void select(InputBuffer *input_buffer)
         printf("\n");
     }
     fclose(file);
-    freeMemory(columnsToSelect, columsToSelectQuantity, fileName, 1);
+    freeMemory(columnsToSelect, columnsToSelectQuantity, fileName, 1);
 }

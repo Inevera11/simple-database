@@ -54,8 +54,7 @@ void createTable(InputBuffer *input_buffer)
     if (file == NULL)
     {
         printf("Couldn't create a file\n");
-        close_input_buffer(input_buffer);
-        exit(EXIT_FAILURE);
+        return;
     }
     printf("Provide column names (separated by spaces):\n");
     char columnNames[MAX_COLUMN_NAMES_LENGHT];
@@ -64,10 +63,9 @@ void createTable(InputBuffer *input_buffer)
     {
         printf("Error reading input\n");
         fclose(file);
-        close_input_buffer(input_buffer);
         free(tableName);
         free(fileName);
-        exit(EXIT_FAILURE);
+        return;
     }
     char tableHeader[MAX_COLUMN_NAMES_LENGHT] = "id ";
     strcat(tableHeader, columnNames);

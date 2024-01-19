@@ -97,10 +97,9 @@ void insertInto(InputBuffer *input_buffer)
     if (file == NULL)
     {
         printf("Couldn't open a %s file\n", fileName);
-        close_input_buffer(input_buffer);
         free(fileName);
         free(tableName);
-        exit(EXIT_FAILURE);
+        return;
     };
     insertValues(file);
     fclose(file);
